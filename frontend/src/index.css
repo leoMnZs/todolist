@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* ---------- Tema (escuro é o padrão) ---------- */
+:root,
+:root[data-theme="dark"] {
+  --page: #14141f;
+  --card: #222222;
+  --text: #f2f2f2;
+  --muted: #8d8d99;
+  --line: #34343f;
+  --field: #1b1b1b;
+  --accent: #6c63ff;
+  --accent-2: #9b8cff;
+  --danger: #ff5d5d;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme="light"] {
+  --page: #8fb0ff;
+  --card: #f6f6f6;
+  --text: #1c1c24;
+  --muted: #7b7b88;
+  --line: #dcdcf5;
+  --field: #ffffff;
+  --accent: #6c63ff;
+  --accent-2: #9b8cff;
+  --danger: #e03131;
+  --shadow: 0 20px 60px rgba(40, 60, 140, 0.35);
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-field: var(--field);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-danger: var(--danger);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: "Kanit", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* Checkbox com gradiente quando marcado */
+.check-box {
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.check-box:hover {
+  transform: scale(1.06);
+}
+.check-box[aria-checked="true"] {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  border-color: transparent;
+}
+
+/* Botões de editar/excluir: só aparecem no hover (ou foco por teclado).
+   Em telas sem hover (celular) ficam sempre visíveis. */
+.row-actions {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.task-row:hover .row-actions,
+.task-row:focus-within .row-actions {
+  opacity: 1;
+}
+@media (hover: none) {
+  .row-actions {
+    opacity: 1;
+  }
+}
+
+/* Animação do modal */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.pop-in {
+  animation: pop-in 0.18s ease-out;
+}
+
+/* Input de data: ícone do calendário visível no tema escuro */
+:root[data-theme="dark"] input[type="date"] {
+  color-scheme: dark;
+}
